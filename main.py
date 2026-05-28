@@ -20,9 +20,11 @@ async def main():
 
     # 2. Initialize the LLM (Gemini)
     # Using ChatGoogle from browser_use for better compatibility with the agent
-    # Model: gemini-2.5-flash (as requested by user)
+    # We prioritize gemini-2.5-flash as it is the current workhorse model.
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
     llm = ChatGoogle(
-        model="gemini-2.5-flash",
+        model=model_name,
         api_key=os.getenv("GOOGLE_API_KEY")
     )
 
@@ -44,9 +46,10 @@ async def main():
     )
 
     # 5. Run the Agent
-    print("Starting Browser Use Agent...")
-    print(f"Session data will be stored in: {data_dir}")
-    print("Please monitor the browser window. You may need to log in to Gmail manually the first time.")
+    print(f"--- Starting Browser Use Agent ---")
+    print(f"Model: {model_name}")
+    print(f"Session data: {data_dir}")
+    print("Action Required: Please monitor the browser window and log in manually if needed.")
 
     try:
         result = await agent.run()
