@@ -3,8 +3,9 @@ import asyncio
 from dotenv import load_dotenv
 from browser_use import Agent, Browser, ChatGoogle
 
-# Load environment variables from .env file
+# Load environment variables from .env and gemini.env files.
 load_dotenv()
+load_dotenv("gemini.env", override=True)
 
 async def main():
     # 1. Configure the Browser
